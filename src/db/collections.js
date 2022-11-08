@@ -1,8 +1,8 @@
-const COLLECTION = {
+const COLLECTIONS = {
   USERS: 'users',
   TOKEN: 'token',
   CATEGORIES: 'categories',
   ARTICLES: 'articles',
 };
 
-module.exports = COLLECTION;
+module.exports = COLLECTIONS;

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const HapiMongodb = require('hapi-mongodb');
 
 const { MONGODB_URL } = process.env;

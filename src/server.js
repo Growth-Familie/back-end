@@ -1,5 +1,6 @@
 const Hapi = require('@hapi/hapi');
 const ConnectionDB = require('./db');
+const { routes } = require('./routes/routes');
 const {
   HapiAuthBearerPlugin,
   AuthBearer,
@@ -25,6 +26,8 @@ const init = async () => {
 
   server.auth.strategy(AuthBearer.NAME, AuthBearer.SCHEME, AuthBearer.OPTIONS);
   server.auth.default(AuthBearer.NAME);
+
+  server.route(routes);
 
   await server.start();
   console.log(`Server berjalan di ${server.info.uri}`);

@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-const COLLECTION = require('../collections');
+const COLLECTIONS = require('../collections');
 
 class Users {
   constructor(request) {
@@ -8,22 +8,39 @@ class Users {
 
   async getAllUsers() {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.USERS)
+                      .collection(COLLECTIONS.USERS)
                       .find({}).toArray();
     return response;
   }
 
-  async getOneUsersById(id) {
-    const { ObjectID } = this.req.mongo;
+  async getOneUser(user) {
+    const { id, username, email } = user;
+
+    if (id) {
+      const { ObjectID } = this.req.mongo;
+      const response = await this.req.mongo.db
+                        .collection(COLLECTIONS.USERS)
+                        .findOne({ _id: new ObjectID(id) });
+      return response;
+    }
+
+    if (username) {
+      const response = await this.req.mongo.db
+                        .collection(COLLECTIONS.USERS)
+                        .findOne({ username });
+      return response;
+    }
+
+    // by email
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.USERS)
-                      .findOne({ _id: new ObjectID(id) });
+                      .collection(COLLECTIONS.USERS)
+                      .findOne({ email });
     return response;
   }
 
   async addOneUser(user) {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.USERS)
+                      .collection(COLLECTIONS.USERS)
                       .insertOne(user);
     return response;
   }
@@ -31,7 +48,7 @@ class Users {
   async editOneUserById(id, user) {
     const { ObjectID } = this.req.mongo;
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.USERS)
+                      .collection(COLLECTIONS.USERS)
                       .updateOne({ _id: new ObjectID(id) }, { $set: user });
     return response;
   }
@@ -39,7 +56,7 @@ class Users {
   async deleteOneUserById(id) {
     const { ObjectID } = this.req.mongo;
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.USERS)
+                      .collection(COLLECTIONS.USERS)
                       .deleteOne({ _id: new ObjectID(id) });
     return response;
   }

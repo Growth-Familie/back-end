@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-const COLLECTION = require('../collections');
+const COLLECTIONS = require('../collections');
 
 class Categories {
   constructor(request) {
@@ -8,7 +8,7 @@ class Categories {
 
   async getAllCategories() {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.CATEGORIES)
+                      .collection(COLLECTIONS.CATEGORIES)
                       .find({}).toArray();
     return response;
   }

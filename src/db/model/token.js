@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-const COLLECTION = require('../collections');
+const COLLECTIONS = require('../collections');
 
 class Token {
   constructor(request) {
@@ -8,7 +8,7 @@ class Token {
 
   async getOneToken(token) {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.TOKEN)
+                      .collection(COLLECTIONS.TOKEN)
                       .findOne({ token });
     return response;
   }

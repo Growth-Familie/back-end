@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-const COLLECTION = require('../collections');
+const COLLECTIONS = require('../collections');
 
 class Articles {
   constructor(request) {
@@ -8,35 +8,35 @@ class Articles {
 
   async getAllArticles() {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.ARTICLES)
+                      .collection(COLLECTIONS.ARTICLES)
                       .find({}).toArray();
     return response;
   }
 
   async getOneArticleBySlug(slug) {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.ARTICLES)
+                      .collection(COLLECTIONS.ARTICLES)
                       .findOne({ slug });
     return response;
   }
 
   async addOneArticle(article) {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.ARTICLES)
+                      .collection(COLLECTIONS.ARTICLES)
                       .insertOne(article);
     return response;
   }
 
   async deleteOneArticleBySlug(slug) {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.ARTICLES)
+                      .collection(COLLECTIONS.ARTICLES)
                       .deleteOne({ slug });
     return response;
   }
 
   async editOneArticleBySlug(slug, article) {
     const response = await this.req.mongo.db
-                      .collection(COLLECTION.ARTICLES)
+                      .collection(COLLECTIONS.ARTICLES)
                       .updateOne({ slug }, { $set: article });
     return response;
   }
