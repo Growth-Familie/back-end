@@ -26,7 +26,18 @@ class UsersResponses {
     return response;
   }
 
-  usernameCharLengthDoesNotMatch() {
+  nameLengthDoesNotMatch() {
+    const response = this.h.response({
+      status: 'error',
+      error: true,
+      message: 'Name harus memiliki panjang minimal 2 karakter',
+    });
+
+    response.code(400);
+    return response;
+  }
+
+  usernameLengthDoesNotMatch() {
     const response = this.h.response({
       status: 'fail',
       error: true,
@@ -37,7 +48,7 @@ class UsersResponses {
     return response;
   }
 
-  passwordCharLengthDoesNotMatch() {
+  passwordLengthDoesNotMatch() {
     const response = this.h.response({
       status: 'fail',
       error: true,
@@ -90,6 +101,39 @@ class UsersResponses {
     });
 
     response.code(200);
+    return response;
+  }
+
+  valueIsEmpty() {
+    const response = this.h.response({
+      status: 'fail',
+      error: true,
+      message: 'Nilai name, username, email, dan password harus diisi',
+    });
+
+    response.code(400);
+    return response;
+  }
+
+  emailNotValid() {
+    const response = this.h.response({
+      status: 'fail',
+      error: true,
+      message: 'Nilai email tidak valid',
+    });
+
+    response.code(400);
+    return response;
+  }
+
+  accessDenied() {
+    const response = this.h.response({
+      status: 'fail',
+      error: 'false',
+      message: 'Akses ditolak',
+    });
+
+    response.code(403);
     return response;
   }
 }

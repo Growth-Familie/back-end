@@ -3,12 +3,10 @@ const { getAllUsersTool } = require('./utils/users/get-all-users-tool');
 
 const usersHandler = {
   addOneUser: (request, h) => {
-    const response = addOneUserTool({ request, h });
-    return response;
+    return addOneUserTool({ request, h });
   },
   getAllUsers: (request, h) => {
-    const response = getAllUsersTool({ request, h });
-    return response;
+    return getAllUsersTool({ request, h });
   },
 };
 

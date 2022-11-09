@@ -2,7 +2,7 @@ const hasWhiteSpace = (str) => {
   return (/\s/).test(str);
 };
 
-const usernameOrPasswordAvailable = async (model, user) => {
+const usernameOrEmailAvailable = async (model, user) => {
   const { username, email } = user;
 
   if (username) {
@@ -15,26 +15,50 @@ const usernameOrPasswordAvailable = async (model, user) => {
   return response;
 };
 
-const checkUsernameOrPasswordLength = (user) => {
-  const { username, password } = user;
+const checkStringLength = (user) => {
+  const { name, username, password } = user;
 
-  if (username) {
-    const checkUsernameLength = username.length >= 5;
-    return checkUsernameLength;
-  }
+  if (name) return name.length >= 2;
+
+  if (username) return username.length >= 5;
 
   // check password length
-  const checkPasswordLength = password.length >= 8;
-  return checkPasswordLength;
+  return password.length >= 8;
+};
+
+const checkNameLength = (name) => {
+  return name.length >= 2;
 };
 
 const getUsersWithLowestLevel = (users) => {
   return users.filter((user) => user.level === 0);
 };
 
+const checkPropertyValueIsEmpty = (payload) => {
+  const {
+    name,
+    username,
+    email,
+    password,
+  } = payload;
+
+  if (!name) return true;
+  if (!username) return true;
+  if (!email) return true;
+  if (!password) return true;
+  return false;
+};
+
+const checkSuperAdmin = (level) => {
+  return level === 1;
+};
+
 module.exports = {
   hasWhiteSpace,
-  usernameOrPasswordAvailable,
-  checkUsernameOrPasswordLength,
+  usernameOrEmailAvailable,
+  checkStringLength,
   getUsersWithLowestLevel,
+  checkPropertyValueIsEmpty,
+  checkNameLength,
+  checkSuperAdmin,
 };

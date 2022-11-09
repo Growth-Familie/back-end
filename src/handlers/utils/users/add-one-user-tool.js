@@ -1,11 +1,14 @@
 const Users = require('../../../db/model/users');
-const UsersResponses = require('../../responses/users-response');
+const UsersResponses = require('../../responses/users-responses');
 const {
   hasWhiteSpace,
-  usernameOrPasswordAvailable,
-  checkUsernameOrPasswordLength,
+  usernameOrEmailAvailable,
+  checkStringLength,
+  checkPropertyValueIsEmpty,
+  checkSuperAdmin,
 } = require('../../helper/users-helper');
 const bcrypt = require('bcrypt');
+const emailValidator = require('email-validator');
 
 // used for encryption password
 const SALT_ROUNDS = 10;
@@ -23,18 +26,32 @@ const addOneUserTool = async ({ request, h }) => {
 
   const model = new Users(request);
   const response = new UsersResponses(h);
-  const statusWhitespacesUsername = hasWhiteSpace(username);
-  const statusWhitespacesPassword = hasWhiteSpace(password);
-  const statusAvailabilityUsername = await usernameOrPasswordAvailable(model, { username });
-  const statusAvailabilityEmail = await usernameOrPasswordAvailable(model, { email });
-  const statusLengthUsername = checkUsernameOrPasswordLength({ username });
-  const statusLengthPassword = checkUsernameOrPasswordLength({ password });
 
   // checking
+  const { level } = request.auth.credentials;
+  const statusSuperAdmin = checkSuperAdmin(level);
+  if (!statusSuperAdmin) return response.accessDenied();
+
+  const statusEmptyValue = checkPropertyValueIsEmpty(request.payload);
+  if (statusEmptyValue) return response.valueIsEmpty();
+
+  const statusWhitespacesUsername = hasWhiteSpace(username);
+  const statusWhitespacesPassword = hasWhiteSpace(password);
+
+  const statusFormatEmail = emailValidator.validate(email);
+  if (!statusFormatEmail) return response.emailNotValid();
+
+  const statusAvailabilityUsername = await usernameOrEmailAvailable(model, { username });
+  const statusAvailabilityEmail = await usernameOrEmailAvailable(model, { email });
+  const statusLengthName = checkStringLength({ name });
+  const statusLengthUsername = checkStringLength({ username });
+  const statusLengthPassword = checkStringLength({ password });
+
   if (statusWhitespacesUsername) return response.whitespacesFound();
   if (statusWhitespacesPassword) return response.whitespacesFound();
-  if (!statusLengthUsername) return response.usernameCharLengthDoesNotMatch();
-  if (!statusLengthPassword) return response.passwordCharLengthDoesNotMatch();
+  if (!statusLengthName) return response.nameLengthDoesNotMatch();
+  if (!statusLengthUsername) return response.usernameLengthDoesNotMatch();
+  if (!statusLengthPassword) return response.passwordLengthDoesNotMatch();
   if (statusAvailabilityUsername) return response.hasBeenUsed(username);
   if (statusAvailabilityEmail) return response.hasBeenUsed(email);
 

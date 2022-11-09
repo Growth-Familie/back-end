@@ -27,6 +27,7 @@
     "@hapi/hapi": "^20.2.2",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
+    "email-validator": "^2.0.4",
     "hapi-auth-bearer-token": "^8.0.0",
     "hapi-mongodb": "^10.0.3",
     "joi": "^17.7.0",
