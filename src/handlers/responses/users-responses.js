@@ -68,7 +68,7 @@ class UsersResponses {
       },
     });
 
-    response.code(200);
+    response.code(201);
     return response;
   }
 
@@ -90,13 +90,29 @@ class UsersResponses {
       data: {
         users: users.map((user) => {
           return {
-            id: user._id.toString(),
             level: user.level,
-            name: user.name,
             username: user.username,
             email: user.email,
           };
         }),
+      },
+    });
+
+    response.code(200);
+    return response;
+  }
+
+  userFound(user) {
+    const response = this.h.response({
+      status: 'success',
+      error: false,
+      data: {
+        user: {
+          level: user.level,
+          username: user.username,
+          name: user.name,
+          email: user.email,
+        },
       },
     });
 
@@ -134,6 +150,50 @@ class UsersResponses {
     });
 
     response.code(403);
+    return response;
+  }
+
+  userNotFound() {
+    const response = this.h.response({
+      status: 'fail',
+      error: true,
+      message: 'User tidak ditemukan',
+    });
+
+    response.code(404);
+    return response;
+  }
+
+  userDeleted(username) {
+    const response = this.h.response({
+      status: 'success',
+      error: false,
+      message: `${username} berhasil dihapus`,
+    });
+
+    response.code(200);
+    return response;
+  }
+
+  passwordNotValid() {
+    const response = this.h.response({
+      status: 'success',
+      error: true,
+      message: 'Gagal update user. Current password tidak sesuai',
+    });
+
+    response.code(400);
+    return response;
+  }
+
+  successfullyUpdated(username) {
+    const response = this.h.response({
+      status: 'success',
+      error: false,
+      message: `Akun ${username} berhasil diperbarui`,
+    });
+
+    response.code(201);
     return response;
   }
 }

@@ -45,19 +45,17 @@ class Users {
     return response;
   }
 
-  async editOneUserById(id, user) {
-    const { ObjectID } = this.req.mongo;
+  async editOneUser(username, user) {
     const response = await this.req.mongo.db
                       .collection(COLLECTIONS.USERS)
-                      .updateOne({ _id: new ObjectID(id) }, { $set: user });
+                      .updateOne({ username }, { $set: user });
     return response;
   }
 
-  async deleteOneUserById(id) {
-    const { ObjectID } = this.req.mongo;
+  async deleteOneUser(username) {
     const response = await this.req.mongo.db
                       .collection(COLLECTIONS.USERS)
-                      .deleteOne({ _id: new ObjectID(id) });
+                      .deleteOne({ username });
     return response;
   }
 }

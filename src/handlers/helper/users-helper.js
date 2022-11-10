@@ -26,10 +26,6 @@ const checkStringLength = (user) => {
   return password.length >= 8;
 };
 
-const checkNameLength = (name) => {
-  return name.length >= 2;
-};
-
 const getUsersWithLowestLevel = (users) => {
   return users.filter((user) => user.level === 0);
 };
@@ -53,12 +49,21 @@ const checkSuperAdmin = (level) => {
   return level === 1;
 };
 
+const checkIsMe = (authUsername, paramUsername) => {
+  return authUsername === paramUsername;
+};
+
+const checkNewEmailEqualToCurrentEmail = (newEmail, oldEmail) => {
+  return newEmail === oldEmail;
+};
+
 module.exports = {
   hasWhiteSpace,
   usernameOrEmailAvailable,
   checkStringLength,
   getUsersWithLowestLevel,
   checkPropertyValueIsEmpty,
-  checkNameLength,
   checkSuperAdmin,
+  checkIsMe,
+  checkNewEmailEqualToCurrentEmail,
 };

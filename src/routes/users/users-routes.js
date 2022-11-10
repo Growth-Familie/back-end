@@ -23,6 +23,24 @@ const usersRoutes = [
     handler: usersHandler.getAllUsers,
     ...authOptions,
   },
+  {
+    method: 'GET',
+    path: '/users/{username}',
+    handler: usersHandler.getSpecificUser,
+    ...authOptions,
+  },
+  {
+    method: 'DELETE',
+    path: '/users/{username}',
+    handler: usersHandler.deleteUser,
+    ...authOptions,
+  },
+  {
+    method: 'PUT',
+    path: '/users/{username}',
+    handler: usersHandler.editUser,
+    ...authOptions,
+  },
 ];
 
 module.exports = { usersRoutes };
