@@ -13,7 +13,17 @@ class Articles {
     return response;
   }
 
-  async getOneArticleBySlug(slug) {
+  async getOneArticle(article) {
+    const { id, slug } = article;
+
+    if (id) {
+      const { ObjectID } = this.req.mongo;
+      const response = await this.req.mongo.db
+                        .collection(COLLECTIONS.ARTICLES)
+                        .findOne({ _id: new ObjectID(id) });
+      return response;
+    }
+
     const response = await this.req.mongo.db
                       .collection(COLLECTIONS.ARTICLES)
                       .findOne({ slug });
@@ -27,14 +37,34 @@ class Articles {
     return response;
   }
 
-  async deleteOneArticleBySlug(slug) {
+  async deleteOneArticle(article) {
+    const { id, slug } = article;
+
+    if (id) {
+      const { ObjectID } = this.req.mongo;
+      const response = await this.req.mongo.db
+                        .collection(COLLECTIONS.ARTICLES)
+                        .deleteOne({ _id: new ObjectID(id) });
+      return response;
+    }
+
     const response = await this.req.mongo.db
                       .collection(COLLECTIONS.ARTICLES)
                       .deleteOne({ slug });
     return response;
   }
 
-  async editOneArticleBySlug(slug, article) {
+  async editOneArticle(key, article) {
+    const { id, slug } = key;
+
+    if (id) {
+      const { ObjectID } = this.req.mongo;
+      const response = await this.req.mongo.db
+                        .collection(COLLECTIONS.ARTICLES)
+                        .updateOne({ _id: new ObjectID(id) }, { $set: article });
+      return response;
+    }
+
     const response = await this.req.mongo.db
                       .collection(COLLECTIONS.ARTICLES)
                       .updateOne({ slug }, { $set: article });
