@@ -32,5 +32,6 @@
     "hapi-mongodb": "^10.0.3",
     "joi": "^17.7.0",
     "slugify": "^1.6.5"
-  }
+  },
+  "keywords": []
 }
