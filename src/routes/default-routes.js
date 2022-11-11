@@ -8,7 +8,7 @@ const defaultRoutes = [
         error: true,
         message: 'Url tidak lengkap atau tidak tersedia',
       });
-      response.code(400);
+      response.code(403);
       return response;
     },
     options: {
@@ -24,7 +24,7 @@ const defaultRoutes = [
         error: true,
         message: 'Url tidak lengkap atau tidak tersedia',
       });
-      response.code(400);
+      response.code(403);
       return response;
     },
     options: {
@@ -40,7 +40,7 @@ const defaultRoutes = [
         error: true,
         message: 'Url tidak lengkap atau tidak tersedia',
       });
-      response.code(400);
+      response.code(403);
       return response;
     },
     options: {
@@ -56,7 +56,7 @@ const defaultRoutes = [
         error: true,
         message: 'Url tidak lengkap atau tidak tersedia',
       });
-      response.code(400);
+      response.code(403);
       return response;
     },
     options: {

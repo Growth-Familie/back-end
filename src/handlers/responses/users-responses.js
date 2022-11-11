@@ -5,86 +5,65 @@ class UsersResponses {
   }
 
   whitespacesFound() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: 'Username atau password tidak boleh memiliki white spaces',
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   hasBeenUsed(user) {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: `${user} telah digunakan`,
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   nameLengthDoesNotMatch() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'error',
       error: true,
       message: 'Name harus memiliki panjang minimal 2 karakter',
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   usernameLengthDoesNotMatch() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: 'Username harus memiliki panjang minimal 5 karakter',
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   passwordLengthDoesNotMatch() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: 'Password harus memiliki panjang minimal 8 karakter',
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   successfullyAdded(id) {
-    const response = this.h.response({
+    return this.h.response({
       status: 'success',
       error: false,
       data: {
         userId: id,
       },
-    });
-
-    response.code(201);
-    return response;
+    }).code(201);
   }
 
   serverError() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: 'Server mengalami kendala',
-    });
-
-    response.code(500);
-    return response;
+    }).code(500);
   }
 
   allUsersFound(users = []) {
-    const response = this.h.response({
+    return this.h.response({
       status: 'success',
       error: false,
       data: {
@@ -96,14 +75,11 @@ class UsersResponses {
           };
         }),
       },
-    });
-
-    response.code(200);
-    return response;
+    }).code(200);
   }
 
   userFound(user) {
-    const response = this.h.response({
+    return this.h.response({
       status: 'success',
       error: false,
       data: {
@@ -114,87 +90,63 @@ class UsersResponses {
           email: user.email,
         },
       },
-    });
-
-    response.code(200);
-    return response;
+    }).code(200);
   }
 
   valueIsEmpty() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: 'Nilai name, username, email, dan password harus diisi',
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   emailNotValid() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: 'Nilai email tidak valid',
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   accessDenied() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: 'false',
       message: 'Akses ditolak',
-    });
-
-    response.code(403);
-    return response;
+    }).code(403);
   }
 
   userNotFound() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'fail',
       error: true,
       message: 'User tidak ditemukan',
-    });
-
-    response.code(404);
-    return response;
+    }).code(404);
   }
 
   userDeleted(username) {
-    const response = this.h.response({
+    return this.h.response({
       status: 'success',
       error: false,
       message: `${username} berhasil dihapus`,
-    });
-
-    response.code(200);
-    return response;
+    }).code(200);
   }
 
   passwordNotValid() {
-    const response = this.h.response({
+    return this.h.response({
       status: 'success',
       error: true,
       message: 'Gagal update user. Current password tidak sesuai',
-    });
-
-    response.code(400);
-    return response;
+    }).code(400);
   }
 
   successfullyUpdated(username) {
-    const response = this.h.response({
+    return this.h.response({
       status: 'success',
       error: false,
       message: `Akun ${username} berhasil diperbarui`,
-    });
-
-    response.code(201);
-    return response;
+    }).code(201);
   }
 }
 

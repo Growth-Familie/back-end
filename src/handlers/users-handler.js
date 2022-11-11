@@ -5,19 +5,19 @@ const { deleteUserByUsernameTool } = require('./utils/users/delete-user-by-usern
 const { editUserByUsernameTool } = require('./utils/users/edit-user-by-username-tool');
 
 const usersHandler = {
-  addOneUser: (request, h) => {
+  addOne: (request, h) => {
     return addOneUserTool({ request, h });
   },
-  getAllUsers: (request, h) => {
+  getAll: (request, h) => {
     return getAllUsersTool({ request, h });
   },
-  getSpecificUser: (request, h) => {
+  getSpecific: (request, h) => {
     return getUserByUsernameTool({ request, h });
   },
-  deleteUser: (request, h) => {
+  deleteOne: (request, h) => {
     return deleteUserByUsernameTool({ request, h });
   },
-  editUser: (request, h) => {
+  editOne: (request, h) => {
     return editUserByUsernameTool({ request, h });
   },
 };

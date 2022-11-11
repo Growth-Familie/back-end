@@ -1,15 +1,13 @@
-/* eslint-disable indent */
 const COLLECTIONS = require('../collections');
 
 class Token {
   constructor(request) {
-    this.req = request;
+    this.collection = request.mongo.db
+      .collection(COLLECTIONS.TOKEN);
   }
 
   async getOneToken(token) {
-    const response = await this.req.mongo.db
-                      .collection(COLLECTIONS.TOKEN)
-                      .findOne({ token });
+    const response = await this.collection.findOne({ token });
     return response;
   }
 }

@@ -14,31 +14,31 @@ const usersRoutes = [
   {
     method: 'POST',
     path: '/users',
-    handler: usersHandler.addOneUser,
+    handler: usersHandler.addOne,
     ...authOptions,
   },
   {
     method: 'GET',
     path: '/users',
-    handler: usersHandler.getAllUsers,
+    handler: usersHandler.getAll,
     ...authOptions,
   },
   {
     method: 'GET',
     path: '/users/{username}',
-    handler: usersHandler.getSpecificUser,
+    handler: usersHandler.getSpecific,
     ...authOptions,
   },
   {
     method: 'DELETE',
     path: '/users/{username}',
-    handler: usersHandler.deleteUser,
+    handler: usersHandler.deleteOne,
     ...authOptions,
   },
   {
     method: 'PUT',
     path: '/users/{username}',
-    handler: usersHandler.editUser,
+    handler: usersHandler.editOne,
     ...authOptions,
   },
 ];

@@ -1,15 +1,21 @@
-/* eslint-disable indent */
 const COLLECTIONS = require('../collections');
 
 class Articles {
   constructor(request) {
     this.req = request;
+    this.collection = request.mongo.db
+      .collection(COLLECTIONS.ARTICLES);
   }
 
   async getAllArticles() {
-    const response = await this.req.mongo.db
-                      .collection(COLLECTIONS.ARTICLES)
-                      .find({}).toArray();
+    const response = await this.collection.find({}).toArray();
+    return response;
+  }
+
+  async getArticlesByUserId(id) {
+    const { ObjectID } = this.req.mongo;
+    const response = await this.collection
+      .find({ addedBy: new ObjectID(id) }).toArray();
     return response;
   }
 
@@ -18,22 +24,17 @@ class Articles {
 
     if (id) {
       const { ObjectID } = this.req.mongo;
-      const response = await this.req.mongo.db
-                        .collection(COLLECTIONS.ARTICLES)
-                        .findOne({ _id: new ObjectID(id) });
+      const response = await this.collection
+        .findOne({ _id: new ObjectID(id) });
       return response;
     }
 
-    const response = await this.req.mongo.db
-                      .collection(COLLECTIONS.ARTICLES)
-                      .findOne({ slug });
+    const response = await this.collection.findOne({ slug });
     return response;
   }
 
   async addOneArticle(article) {
-    const response = await this.req.mongo.db
-                      .collection(COLLECTIONS.ARTICLES)
-                      .insertOne(article);
+    const response = await this.collection.insertOne(article);
     return response;
   }
 
@@ -42,15 +43,12 @@ class Articles {
 
     if (id) {
       const { ObjectID } = this.req.mongo;
-      const response = await this.req.mongo.db
-                        .collection(COLLECTIONS.ARTICLES)
-                        .deleteOne({ _id: new ObjectID(id) });
+      const response = await this.collection
+        .deleteOne({ _id: new ObjectID(id) });
       return response;
     }
 
-    const response = await this.req.mongo.db
-                      .collection(COLLECTIONS.ARTICLES)
-                      .deleteOne({ slug });
+    const response = await this.collection.deleteOne({ slug });
     return response;
   }
 
@@ -59,15 +57,13 @@ class Articles {
 
     if (id) {
       const { ObjectID } = this.req.mongo;
-      const response = await this.req.mongo.db
-                        .collection(COLLECTIONS.ARTICLES)
-                        .updateOne({ _id: new ObjectID(id) }, { $set: article });
+      const response = await this.collection
+        .updateOne({ _id: new ObjectID(id) }, { $set: article });
       return response;
     }
 
-    const response = await this.req.mongo.db
-                      .collection(COLLECTIONS.ARTICLES)
-                      .updateOne({ slug }, { $set: article });
+    const response = await this.collection
+      .updateOne({ slug }, { $set: article });
     return response;
   }
 }
