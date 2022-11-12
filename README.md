@@ -245,7 +245,7 @@ Akun superadmin ditandai dengan level bernilai 1 pada koleksi database dan memil
 Digunakan untuk menambahkan akun pengguna baru. Lakukan request dengan mengirimkan nilai-nilai pada body seperti berikut:
 
 ```
-{
+body: {
   "username": "akunbaru",
   "name": "Akun Baru",
   "email": "akunbaru@example.com",
@@ -253,7 +253,7 @@ Digunakan untuk menambahkan akun pengguna baru. Lakukan request dengan mengirimk
 }
 ```
 
-**PENTING! NILAI-NILAI BERIKUT WAJIB DIISI**
+PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
 + *username* - nilai ini digunakan untuk login, tidak boleh memiliki white space, harus lebih dari 5 karakter dan harus bersifat unik alias belum digunakan oleh pengguna lain
 + *name* - diisi minimal 2 karakter
 + *email* - merupakan email aktif yang belum digunakan oleh pengguna lain dan harus sesuai dengan format email pada umumnya, contoh: 'email@example.com'
@@ -272,22 +272,22 @@ Digunakan untuk mendapatkan semua akun yang terdapat pada koleksi database. Resp
 
 ```
 {
-    "status": "success",
-    "error": false,
-    "data": {
-        "users": [
-            {
-                "level": 0,
-                "username": "suhaefi",
-                "email": "emailsuhaefi@example.com"
-            },
-            {
-                "level": 0,
-                "username": "taqigusdi",
-                "email": "emailtaqi@example.com"
-            }
-        ]
-    }
+  "status": "success",
+  "error": false,
+  "data": {
+    "users": [
+      {
+        "level": 0,
+        "username": "suhaefi",
+        "email": "emailsuhaefi@example.com"
+      },
+      {
+        "level": 0,
+        "username": "taqigusdi",
+        "email": "emailtaqi@example.com"
+      }
+    ]
+  }
 }
 ```
 
