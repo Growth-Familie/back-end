@@ -10,7 +10,7 @@ headers: {
 }
 ```
 
-Ganti ***<\TOKEN\>*** dengan token yang telah disediakan oleh tim Back-End.
+Ganti ***<\TOKEN>*** dengan token yang telah disediakan oleh tim Back-End.
 
 ###### DAFTAR ISI
 + [RUTE-RUTE UMUM](#rute-rute-umum)
