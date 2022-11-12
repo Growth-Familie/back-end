@@ -10,7 +10,7 @@ headers: {
 }
 ```
 
-Ganti ***<TOKEN>*** dengan token yang telah disediakan oleh tim Back-End.
+Ganti ***<\TOKEN\>*** dengan token yang telah disediakan oleh tim Back-End.
 
 ###### DAFTAR ISI
 + [RUTE-RUTE UMUM](#rute-rute-umum)
@@ -149,13 +149,13 @@ body: {
 }
 ```
 
-**PENTING! NILAI-NILAI BERIKUT WAJIB DIISI**
+PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
 + *title* - isikan dengan judul artikel
 + *category* - isikan dengan satu kategori yang tersedia
 + *img* - isikan dengan alamat dari gambar yang berkaitan dengan isi artikel
 + *body* - isi atau text konten beserta tag HTML pembungkus kontennya
 
-**NILAI BERIKUT INI BERSIFAT OPTIONAL**
+NILAI BERIKUT INI BERSIFAT OPTIONAL
 + *from* - jika artikel berasal dari sumber lain maka wajib menyertakan sumber asli pada bagian ini, tapi jika artikel adalah original bisa dikosongkan saja karena akan terisi otomatis dengan nilai *username* yang melakukan request-nya.<br>
 
 [KEMBALI KE DAFTAR ISI](#daftar-isi)
@@ -179,7 +179,7 @@ Lakukan request dengan menyertakan nilai-nilai pada body, contoh:
 
 Beberapa nilai diatas ada yang wajib diisi dan juga optional sama seperti saat menambahkan artikel.
 
-**CATATAN**
+CATATAN
 <br>
 Meskipun melakukan update terhadap nilai title, nilai slug yang dihasilkan berdasarkan pada nilai title tidak akan ikut diperbarui. Nilai slug hanya akan dihasilkan sekali saja pada saat pertama kali menambahkan artikel, hal ini dibuat dengan pertimbangkan terhadap SEO.
 
@@ -204,7 +204,7 @@ body: {
 }
 ```
 
-**PENTING! NILAI-NILAI BERIKUT WAJIB DIISI**
+PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
 + *name* - nama lengkap pengguna
 + *email* - email aktif pengguna, jika format tidak sesuai seperti 'email@example.com' atau email telah digunakan oleh akun lain maka update gagal
 + *currentPassword* - masukkan password saat ini / password lama, jika tidak sesuai maka update gagal
