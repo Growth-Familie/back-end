@@ -4,7 +4,7 @@
   "description": "Back-End Growth Familie - Tim C22-128",
   "main": "./src/server.js",
   "scripts": {
-    "start": "nodemon ./src/server.js"
+    "start": "node ./src/server.js"
   },
   "repository": {
     "type": "git",
