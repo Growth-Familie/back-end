@@ -9,6 +9,9 @@ const AuthBearer = {
     validate: async (request, token, h) => {
       const objectToken = new Token(request);
       const tokenFromDB = await objectToken.getOneToken(token);
+
+      if (!tokenFromDB) return { isValid: false };
+
       const isValid = token === tokenFromDB.token;
       const credentials = { token };
 

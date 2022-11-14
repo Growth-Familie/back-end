@@ -116,6 +116,44 @@ Digunakan untuk mendapatkan semua daftar kategori yang telah tersedia. Adapun ka
 + Bayi
 + Balita
 + Anak-anak
++ Parenting
+
+###### /categories/:name
+Ganti **:name** dengan nama kategori yang telah tersedia.<br>
+Digunakan untuk mendapatkan detail dari category. Response yang diberikan akan berupa:
+
+```
+{
+    "status": "success",
+    "error": false,
+    "data": {
+    "category": [
+      {
+        "_id": "6371a97235477aa3768daf41",
+        "name": "Bayi",
+        "needs": [
+            {
+              "name": "Popok",
+              "brand": "MamyPoko Sensasi Lembut Tape NB",
+              "quantity": 40,
+              "features": "Stretchy soft fit memungkinkan bayi bergerak bebas, lapisan berpori, lapisan bergelombang yang dapat menggunci pipis",
+              "price": 117000,
+              "source": "https://www.imaos.id/neraca/daftar-harga-popok-sekali-pakai-untuk-bayi-baru-lahir/"
+            },
+            {
+              "name": "Paket Baju Newborn",
+              "brand": "-",
+              "quantity": 24,
+              "features": "Handfeel yang lembut, daya serap air baik, tidak mudah berubah bentuk",
+              "price": 365000,
+              "source": "https://tokopedia.link/gWdB7AQTVub"
+            }
+          ]
+      }
+    ]
+  }
+}
+```
 
 #### METHOD: POST
 ###### /login

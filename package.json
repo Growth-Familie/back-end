@@ -34,5 +34,7 @@
     "nanoid": "^3.3.4",
     "slugify": "^1.6.5"
   },
-  "keywords": []
+  "engines": {
+    "node": "16.17.0"
+  }
 }
