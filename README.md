@@ -111,7 +111,7 @@ Meskipun tidak disarankan, kami sediakan rute untuk mendapatkan detail artikel m
 ```
 
 ###### /categories
-Digunakan untuk mendapatkan semua daftar kategori yang telah tersedia. Adapun kategori yang tersedia adalah:
+Digunakan untuk mendapatkan semua daftar kategori yang telah tersedia dan hanya menampilkan id dan nama kategori. Adapun kategori yang tersedia adalah:
 + Kehamilan
 + Bayi
 + Balita
