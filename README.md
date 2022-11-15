@@ -1,5 +1,5 @@
 # API GROWTH FAMILIE
-Alamat API: *Belum tersedia secara online*.
+Alamat API: https://growfie-api.cyclic.app.
 <br>
 Hampir semua request memerlukan autentikasi berupa bearer token. Simpan bearer token tersebut dalam headers seperti berikut:
 
