@@ -7,6 +7,8 @@ const {
   COOKIE_PASSWORD,
 } = process.env;
 
+const A_DAY_IN_MILISECONDS = 86400000;
+
 const AuthCookie = {
   NAME: 'session',
   SCHEME: 'cookie',
@@ -14,9 +16,9 @@ const AuthCookie = {
     cookie: {
       name: COOKIE_NAME,
       password: COOKIE_PASSWORD,
-      isSecure: false,
+      ttl: A_DAY_IN_MILISECONDS,
     },
-    redirectTo: '/login',
+    keepAlive: true,
     validate: async (request, session) => {
       const model = new Users(request);
       const { id } = session;
