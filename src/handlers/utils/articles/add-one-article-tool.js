@@ -1,5 +1,7 @@
+const Users = require('../../../db/model/users');
 const Articles = require('../../../db/model/articles');
 const ArticlesResponses = require('../../responses/articles-responses');
+const UsersResponses = require('../../responses/users-responses');
 const {
   checkEmptyValues,
   createSlug,
@@ -21,19 +23,28 @@ const addOneArticleTool = async ({ request, h }) => {
     img,
     body,
     from: payloadFrom,
+    user,
   } = request.payload;
 
   const receiveRequest = new Articles(request);
   const response = new ArticlesResponses(h);
-  const { isAuthenticated } = request.auth;
 
-  if (!isAuthenticated) return response.accessDenied();
+  if (!user) return response.valueIsEmpty();
 
   if (checkEmptyValues(request.payload)) return response.valueIsEmpty();
 
-  const { _id: authId, username } = request.auth.credentials;
+  const { username } = user;
+
+  const users = new Users(request);
+  const usersResponses = new UsersResponses(h);
+  const statusUser = await users.getOneUser({ username });
+
+  if (!statusUser) return usersResponses.userNotFound();
+
+  const { _id: userId } = statusUser;
+
   const from = checkArticleSource(payloadFrom, username);
-  const addedBy = authId;
+  const addedBy = userId;
   const overview = createOverview(body);
   const slug = await createSlug(receiveRequest, slugify(title, slugifyOptions));
 

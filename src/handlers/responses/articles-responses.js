@@ -7,7 +7,7 @@ class ArticlesResponses {
     return this.h.response({
       status: 'fail',
       error: true,
-      message: 'Nilai title, category, img, dan body tidak boleh kosong',
+      message: 'Nilai title, category, img, body, dan user tidak boleh kosong',
     }).code(400);
   }
 
@@ -93,14 +93,6 @@ class ArticlesResponses {
       error: false,
       message: 'Artikel berhasil dihapus',
     }).code(200);
-  }
-
-  accessDenied() {
-    return this.h.response({
-      status: 'fail',
-      error: false,
-      message: 'Akses ditolak',
-    }).code(403);
   }
 }
 

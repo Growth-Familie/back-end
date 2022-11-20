@@ -18,8 +18,12 @@ const checkEmptyValues = (payload) => {
     category,
     img,
     body,
+    user,
   } = payload;
 
+  const { username } = user;
+
+  if (!username) return true;
   if (!title || !category) return true;
   return (!img || !body);
 };
@@ -39,9 +43,8 @@ const checkArticleSource = (source, authUsername) => {
   return source;
 };
 
-const checkIsMyArticle = (userId, article) => {
-  if (!article) return false;
-  return userId.toString() === article.addedBy.toString();
+const checkIdLength = (id) => {
+  return id.length >= 24;
 };
 
 module.exports = {
@@ -49,5 +52,5 @@ module.exports = {
   createSlug,
   createOverview,
   checkArticleSource,
-  checkIsMyArticle,
+  checkIdLength,
 };

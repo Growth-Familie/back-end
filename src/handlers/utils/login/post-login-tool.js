@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 const postLoginTool = async ({ request, h }) => {
   const { username, password } = request.payload;
+
   const model = new Users(request);
   const response = new LoginResponses(h);
 
@@ -15,9 +16,7 @@ const postLoginTool = async ({ request, h }) => {
 
   if (!statusPassword) return response.loginFailed();
 
-  const { _id: id } = account;
-  request.cookieAuth.set({ id: id.toString() });
-  return response.successfullyLoggedIn(account.username);
+  return response.successfullyLoggedIn(account);
 };
 
 module.exports = { postLoginTool };

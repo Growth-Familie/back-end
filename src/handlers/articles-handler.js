@@ -4,7 +4,6 @@ const { getAllArticlesTool } = require('./utils/articles/get-all-articles-tool')
 const { getDetailArticleTool } = require('./utils/articles/get-detail-article-tool');
 const { getArticlesByCategoryTool } = require('./utils/articles/get-articles-by-category-tool');
 const { deleteOneArticleTool } = require('./utils/articles/delete-one-article-tool');
-const { getArticlesByUserTool } = require('./utils/articles/get-articles-by-user-tool');
 
 const articlesHandler = {
   addOne: (request, h) => {
@@ -24,9 +23,6 @@ const articlesHandler = {
   },
   getAllByCategory: (request, h) => {
     return getArticlesByCategoryTool({ request, h });
-  },
-  getArticlesByUser: (request, h) => {
-    return getArticlesByUserTool({ request, h });
   },
 };
 

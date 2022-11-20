@@ -15,16 +15,26 @@ Ganti ***\<TOKEN\>*** dengan token yang telah disediakan oleh tim Back-End.
 ###### DAFTAR ISI
 + [RUTE-RUTE UMUM](#rute-rute-umum)
     + [METHOD: GET](#method-get)
+        + [Mendapatkan Semua Artikel](#articles)
+        + [Mendapatkan Semua Artikel dengan Satu Kategori Tertentu](#articlescategoryname)
+        + [Melihat Detail Artikel dengan Slug](#articlesslug)
+        + [Melihat Detail Artikel dengan Id](#articlesidid)
+        + [Mendapatkan Semuda Daftar Kategori yang Ada](#categories)
+        + [Melihat Detail dari Satu Kategori Berdasarkan Nama Kategorinya](#categoriesname)
     + [METHOD: POST](#method-post)
-+ [RUTE-RUTE LANJUTAN: UNTUK SEMUA JENIS AKUN](#rute-rute-lanjutan-untuk-semua-jenis-akun)
+        + [Mengirimkan Data Pengguna untuk Login](#login)
++ [RUTE-RUTE LANJUTAN:](#rute-rute-lanjutan)
     + [METHOD: POST](#method-post-1)
+        + [Menambah Artikel Baru](#articles-1)
     + [METHOD: PUT](#method-put)
+        + [Memperbarui Artikel dengan Slug](#articlesslug-1)
+        + [Memperbarui Artikel dengan Id](#articlesidid-1)
+        + [Memperbarui Akun dengan Username](#usersusername)
     + [METHOD: DELETE](#method-delete)
+        + [Menghapus Artikel dengan Slug](#articlesslug-2)
+        + [Menghapus Artikel dengan Id](#articlesidid-2)
     + [METHOD: GET](#method-get-1)
-+ [RUTE-RUTE LANJUTAN: UNTUK AKUN SUPERADMIN](#rute-rute-lanjutan-untuk-akun-superadmin)
-    + [METHOD: POST](#method-post-2)
-    + [METHOD: DELETE](#method-delete-1)
-    + [METHOD: GET](#method-get-2)
+        + [Melihat Detail Akun dengan Username](#usersusername-1)
 
 ### RUTE-RUTE UMUM
 Rute-rute dibawah ini dapat diakses secara bebas dengan syarat menggunakan autentikasi bearer token seperti di atas.
@@ -99,8 +109,6 @@ Contoh response yang dikembalikan jika artikel ditemukan adalah:
 
 Sangat disarankan untuk menggunakan slug dengan alasan lebih mudah dibaca dan dipahami oleh manusia.<br>
 
-[KEMBALI KE DAFTAR ISI](#daftar-isi)
-
 ###### /articles/id/:id
 Ganti ***:id*** dengan id yang dimiliki pada artikel target.
 <br>
@@ -109,6 +117,7 @@ Meskipun tidak disarankan, kami sediakan rute untuk mendapatkan detail artikel m
 ```
 /articles/id/636e5a4dba0f486fa1445326
 ```
+[KEMBALI KE DAFTAR ISI](#daftar-isi)
 
 ###### /categories
 Digunakan untuk mendapatkan semua daftar kategori yang telah tersedia dan hanya menampilkan id dan nama kategori. Adapun kategori yang tersedia adalah:
@@ -157,7 +166,7 @@ Digunakan untuk mendapatkan detail dari category. Response yang diberikan akan b
 
 #### METHOD: POST
 ###### /login
-Digunakan agar dapat mengakses *rute-rute lanjutan* dan memperoleh cookie dengan syarat login menggunakan akun yang telah terdaftar atau yang telah didaftarkan oleh akun dengan level *superadmin*. Kirimkan request dengan body seperti berikut:
+Digunakan agar dapat mengakses *rute-rute lanjutan* dengan syarat login menggunakan akun yang telah terdaftar. Kirimkan request dengan body seperti berikut:
 
 ```
 body: {
@@ -168,10 +177,12 @@ body: {
 
 Ganti masing-masing *username_akun* dan *password_akun* dengan yang telah terdaftar.<br>
 
+Jika response berstatus sukses, untuk mempermudah sistem login maka sisi Client/Front-End perlu menyimpan informasi user login tersebut dalam web storage.
+
 [KEMBALI KE DAFTAR ISI](#daftar-isi)
 
-### RUTE-RUTE LANJUTAN: UNTUK SEMUA JENIS AKUN
-Maksud dari ***rute-rute lanjutan untuk semua jenis akun*** yakni merupakan rute yang hanya dapat diakses jika telah terdapat cookie. Cookie sendiri diperoleh jika pengguna berhasil login.
+### RUTE-RUTE LANJUTAN
+Maksud dari ***rute-rute lanjutan untuk semua jenis akun*** yakni merupakan rute yang hanya dapat diakses jika telah berhasil login.
 
 #### METHOD: POST
 ###### /articles
@@ -183,7 +194,13 @@ body: {
   "category": "Bayi",
   "from": "https://www.halodoc.com/artikel/perkembangan-bayi-7-bulan",
   "img": "https://lh4.googleusercontent.com/qHV8oKhPv3zIvby_-f0l7ps7uJvlNsUfOg_rc5iefazR4SlTGUzyOyAlpk4rNknLPUE=w2400",
-  "body": "<p><strong>Halodoc</strong>. Si Kecil sudah berusia genap 7 bulan! Itu artinya ia sudah melewati setengah tahun pertama hidupnya dengan baik. Ayah dan ibu tentunya sudah tidak sabar untuk mengamati perkembangan penting apalagi yang dibuat bayi di usia 7 bulan ini. Karena itu, yuk cari tahu di bawah ini.</p><h2>Bayi Sudah Bisa Merangkak</h2><p>Apakah Si Kecil sudah bisa merangkak? Pertanyaan tersebut seringkali dilontarkan oleh teman-teman atau keluarga, seolah-olah bila bayi belum bisa merangkak di usia 7 bulan itu, artinya ia mengalami keterlambatan perkembangan. Padahal, kenyataannya, rata-rata bayi mulai merangkak di antara usia 6–7 bulan. Bayi juga merangkak secara tidak terduga, sehingga banyak ahli anak, bahkan tidak menganggap kemampuan tersebut sebagai tonggak perkembangan bayi yang penting.</p>"
+  "body": "<p><strong>Halodoc</strong>. Si Kecil sudah berusia genap 7 bulan! Itu artinya ia sudah melewati setengah tahun pertama hidupnya dengan baik. Ayah dan ibu tentunya sudah tidak sabar untuk mengamati perkembangan penting apalagi yang dibuat bayi di usia 7 bulan ini. Karena itu, yuk cari tahu di bawah ini.</p><h2>Bayi Sudah Bisa Merangkak</h2><p>Apakah Si Kecil sudah bisa merangkak? Pertanyaan tersebut seringkali dilontarkan oleh teman-teman atau keluarga, seolah-olah bila bayi belum bisa merangkak di usia 7 bulan itu, artinya ia mengalami keterlambatan perkembangan. Padahal, kenyataannya, rata-rata bayi mulai merangkak di antara usia 6–7 bulan. Bayi juga merangkak secara tidak terduga, sehingga banyak ahli anak, bahkan tidak menganggap kemampuan tersebut sebagai tonggak perkembangan bayi yang penting.</p>",
+  "user": {
+    "id": "12345",
+    "username": "growfie",
+    "name": "Growth Familie",
+    "email": "growthfamilie@gmail.com"
+  }
 }
 ```
 
@@ -192,6 +209,7 @@ PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
 + *category* - isikan dengan satu kategori yang tersedia
 + *img* - isikan dengan alamat dari gambar yang berkaitan dengan isi artikel
 + *body* - isi atau text konten beserta tag HTML pembungkus kontennya
++ *user* - data pengguna yang berhasil login, tersimpan pada sisi client dalam web storage
 
 NILAI BERIKUT INI BERSIFAT OPTIONAL
 + *from* - jika artikel berasal dari sumber lain maka wajib menyertakan sumber asli pada bagian ini, tapi jika artikel adalah original bisa dikosongkan saja karena akan terisi otomatis dengan nilai *username* yang melakukan request-nya.<br>
@@ -211,7 +229,13 @@ Lakukan request dengan menyertakan nilai-nilai pada body, contoh:
   "category": "Bayi",
   "from": "https://www.halodoc.com/artikel/perkembangan-bayi-7-bulan",
   "img": "https://lh4.googleusercontent.com/qHV8oKhPv3zIvby_-f0l7ps7uJvlNsUfOg_rc5iefazR4SlTGUzyOyAlpk4rNknLPUE=w2400",
-  "body": "<p><strong>Halodoc</strong>. Si Kecil sudah berusia genap 7 bulan! Itu artinya ia sudah melewati setengah tahun pertama hidupnya dengan baik. Ayah dan ibu tentunya sudah tidak sabar untuk mengamati perkembangan penting apalagi yang dibuat bayi di usia 7 bulan ini. Karena itu, yuk cari tahu di bawah ini.</p>"
+  "body": "<p><strong>Halodoc</strong>. Si Kecil sudah berusia genap 7 bulan! Itu artinya ia sudah melewati setengah tahun pertama hidupnya dengan baik. Ayah dan ibu tentunya sudah tidak sabar untuk mengamati perkembangan penting apalagi yang dibuat bayi di usia 7 bulan ini. Karena itu, yuk cari tahu di bawah ini.</p>",
+  "user": {
+    "id": "12345",
+    "username": "growfie",
+    "name": "Growth Familie",
+    "email": "growthfamilie@gmail.com"
+  }
 }
 ```
 
@@ -226,11 +250,11 @@ Meskipun melakukan update terhadap nilai title, nilai slug yang dihasilkan berda
 
 Ganti ***:id*** dengan id yang dimiliki pada artikel target. Digunakan untuk memperbarui satu artikel yang diperoleh melalui id. Artikel hanya dapat diperbarui oleh akun yang menambahkan artikel tersebut.
 
+[KEMBALI KE DAFTAR ISI](#daftar-isi)
+
 ###### /users/:username
-Ganti ***:username*** dengan nilai username yang dimiliki pada akun target. Digunakan untuk memperbarui data akun. Akun hanya dapat diperbarui oleh pemilik akun itu sendiri dalam artian hanya dapat melakukan update pada akun yang digunakan saat login.<br>
-<br>
-Contohnya Anda login menggunakan akun A maka Anda hanya dapat memperbarui akun A itu sendiri, jadi akun A tidak dapat memperbarui data akun B.<br>
-<br>
+Ganti ***:username*** dengan nilai username yang dimiliki pada akun target. Digunakan untuk memperbarui data akun.<br>
+
 Lakukan request dengan method put dan sertakan nilai-nilai berikut pada body, contoh:
 
 ```
@@ -244,13 +268,10 @@ body: {
 
 PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
 + *name* - nama lengkap pengguna
-+ *email* - email aktif pengguna, jika format tidak sesuai seperti 'email@example.com' atau email telah digunakan oleh akun lain maka update gagal
 + *currentPassword* - masukkan password saat ini / password lama, jika tidak sesuai maka update gagal
 + *newPassword* - masukkan password baru, pastikan tidak memiliki white space dan lebih dari 8 karakter
 
-Untuk saat ini Anda tidak dapat melakukan pembaruan terhadap nilai username.<br>
-
-[KEMBALI KE DAFTAR ISI](#daftar-isi)
+Untuk saat ini tidak dapat melakukan pembaruan terhadap nilai username.<br>
 
 #### METHOD: DELETE
 ###### /articles/:slug
@@ -263,70 +284,8 @@ Ganti ***:id*** dengan id yang dimiliki pada artikel target.<br>
 Digunakan untuk menghapus satu artikel berdasarkan pada id. Artikel hanya dapat dihapus oleh pemilik artikel atau akun yang menambahkan artikel tersebut.
 
 #### METHOD: GET
-###### /articles/my
-Digunakan untuk mendapatkan semua artikel yang pernah ditambahkan oleh akun yang digunakan untuk login. Misal login menggunakan akun A maka response yang diberikan adalah semua artikel yang sudah ditambahkan oleh akun A tersebut.
-
 ###### /users/:username
 Ganti ***:username*** dengan username yang dimiliki pada akun target.<br>
-Digunakan untuk melihat detail akun sendiri. Misalnya, login menggunakan akun A maka response yang diberikan adalah informasi mengenai akun A tersebut. Jadi, jika login menggunakan akun A maka tidak akan bisa melihat informasi akun B atau yang lain.
-
-###### /logout
-Digunakan untuk keluar dari akun yang sedang digunakan dan akan menghapus cookie yang terdaftar. Sehingga setelah logout, Anda sudah tidak memiliki akses terhadap ***rute-rute lanjutan***.<br>
-
-[KEMBALI KE DAFTAR ISI](#daftar-isi)
-
-### RUTE-RUTE LANJUTAN: UNTUK AKUN SUPERADMIN
-Akun superadmin ditandai dengan level bernilai 1 pada koleksi database dan memiliki izin atau akses lebih tinggi daripada akun biasa. Beberala rute atau url berikut hanya dapat diakses oleh akun dengan level superadmin.
-
-#### METHOD: POST
-###### /users
-Digunakan untuk menambahkan akun pengguna baru. Lakukan request dengan mengirimkan nilai-nilai pada body seperti berikut:
-
-```
-body: {
-  "username": "akunbaru",
-  "name": "Akun Baru",
-  "email": "akunbaru@example.com",
-  "password": "password_akun_baru"
-}
-```
-
-PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
-+ *username* - nilai ini digunakan untuk login, tidak boleh memiliki white space, harus lebih dari 5 karakter dan harus bersifat unik alias belum digunakan oleh pengguna lain
-+ *name* - diisi minimal 2 karakter
-+ *email* - merupakan email aktif yang belum digunakan oleh pengguna lain dan harus sesuai dengan format email pada umumnya, contoh: 'email@example.com'
-+ *password* - diisi minimal 8 karakter, tidak boleh menggunakan white space, kemudian jika pendaftaran berhasil password yang tersimpan pada database akan terenkripsi
-
-Untuk saat ini pendaftaran hanya dapat dilakukan dengan menghubungi pemiliki superadmin, mengingat terdapat kriteria khusus agar bisa ikut berpartisipasi dalam membuat konten pada Aplikasi Growth Familie.
-
-#### METHOD: DELETE
-###### /users/:username
-Ganti ***:username*** dengan username yang dimiliki pada target akun pengguna.<br>
-Digunakan untuk menghapus akun berdasarkan nilai username. Perlu dicatat bahwa untuk saat ini Anda tidak dapat menghapus akun sendiri.
-
-#### METHOD: GET
-###### /users
-Digunakan untuk mendapatkan semua akun yang terdapat pada koleksi database. Response yang diberikan akan seperti berikut:
-
-```
-{
-  "status": "success",
-  "error": false,
-  "data": {
-    "users": [
-      {
-        "level": 0,
-        "username": "suhaefi",
-        "email": "emailsuhaefi@example.com"
-      },
-      {
-        "level": 0,
-        "username": "taqigusdi",
-        "email": "emailtaqi@example.com"
-      }
-    ]
-  }
-}
-```
+Digunakan untuk melihat detail akun.
 
 [KEMBALI KE DAFTAR ISI](#daftar-isi)

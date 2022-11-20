@@ -8,7 +8,7 @@ class Articles {
   }
 
   async getAllArticles() {
-    const response = await this.collection.find({}).toArray();
+    const response = await this.collection.find({}).sort({"insertedAt": -1}).toArray();
     return response;
   }
 

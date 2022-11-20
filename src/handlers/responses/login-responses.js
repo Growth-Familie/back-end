@@ -3,11 +3,19 @@ class LoginResponses {
     this.h = h;
   }
 
-  successfullyLoggedIn(name) {
+  successfullyLoggedIn(user) {
+    const { _id: id } = user;
     return this.h.response({
       status: 'success',
       error: false,
-      message: `${name} berhasil login!`,
+      data: {
+        user: {
+          id,
+          level: user.level,
+          username: user.username,
+          email: user.email,
+        },
+      },
     }).code(200);
   }
 
