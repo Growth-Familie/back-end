@@ -1,12 +1,9 @@
 const Users = require('../../../db/model/users');
 const UsersResponses = require('../../responses/users-responses');
 const {
-  checkIsMe,
   checkPropertyValueIsEmpty,
   hasWhiteSpace,
-  usernameOrEmailAvailable,
   checkStringLength,
-  checkNewEmailEqualToCurrentEmail,
 } = require('../../helper/users-helper');
 const bcrypt = require('bcrypt');
 const emailValidator = require('email-validator');
@@ -17,11 +14,16 @@ const SALT_ROUNDS = 10;
 const editUserByUsernameTool = async ({ request, h }) => {
   const { username } = request.params;
 
+  const model = new Users(request);
+  const response = new UsersResponses(h);
+
+  const getUser = await model.getOneUser({ username });
+
+  if (!getUser) return response.userNotFound();
+
   const {
-    email: authEmail,
-    password: authPassword,
-    username: authUsename,
-  } = request.auth.credentials;
+    password: myPassword,
+  } = getUser;
 
   const {
     name,
@@ -37,28 +39,15 @@ const editUserByUsernameTool = async ({ request, h }) => {
     password,
   };
 
-  const model = new Users(request);
-  const response = new UsersResponses(h);
-
   // checking
-  if (!checkIsMe(authUsename, username)) return response.accessDenied();
   if (checkPropertyValueIsEmpty(user)) return response.valueIsEmpty();
   if (!checkStringLength({ name })) return response.nameLengthDoesNotMatch();
   if (!emailValidator.validate(email)) return response.emailNotValid();
   if (hasWhiteSpace(password)) return response.whitespacesFound();
   if (!checkStringLength({ password })) return response.passwordLengthDoesNotMatch();
 
-  const statusAvailabilityEmail = await usernameOrEmailAvailable(model, { email });
-  const statusSameEmail = checkNewEmailEqualToCurrentEmail(email, authEmail);
-
-  if (!statusSameEmail) {
-    if (statusAvailabilityEmail) {
-      return response.hasBeenUsed(email);
-    }
-  }
-
   const encryptedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-  const statusPassword = await bcrypt.compare(currentPassword, authPassword);
+  const statusPassword = await bcrypt.compare(currentPassword, myPassword);
 
   if (!statusPassword) return response.passwordNotValid();
 

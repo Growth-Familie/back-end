@@ -6,9 +6,6 @@ const getUserByUsernameTool = async ({ request, h }) => {
   const model = new Users(request);
   const response = new UsersResponses(h);
 
-  const { isAuthenticated } = request.auth;
-  if (!isAuthenticated) return response.accessDenied();
-
   const getUser = await model.getOneUser({ username });
   if (!getUser) return response.userNotFound();
   if (getUser) return response.userFound(getUser);

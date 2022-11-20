@@ -1,20 +1,17 @@
 const Articles = require('../../../db/model/articles');
 const ArticlesResponse = require('../../responses/articles-responses');
 const {
-  checkIsMyArticle,
   checkArticleSource,
   checkEmptyValues,
+  checkIdLength,
 } = require('../../helper/articles-helper');
+const Users = require('../../../db/model/users');
+const UsersResponses = require('../../responses/users-responses');
 
 const editOneArticleTool = async ({ request, h }) => {
   const { articleId: id, articleSlug: slug } = request.params;
-  const { isAuthenticated } = request.auth;
   const receiveRequest = new Articles(request);
   const response = new ArticlesResponse(h);
-
-  if (!isAuthenticated) return response.accessDenied();
-
-  const { _id: authId, username } = request.auth.credentials;
 
   const {
     title,
@@ -22,7 +19,18 @@ const editOneArticleTool = async ({ request, h }) => {
     img,
     body,
     from: payloadFrom,
+    user,
   } = request.payload;
+
+  if (checkEmptyValues(request.payload)) return response.valueIsEmpty();
+
+  const { username } = user;
+  const users = new Users(request);
+  const usersResponses = new UsersResponses(h);
+
+  const getUser = await users.getOneUser({ username });
+
+  if (!getUser) return usersResponses.userNotFound();
 
   const from = checkArticleSource(payloadFrom, username);
   const updatedAt = new Date().toISOString();
@@ -36,13 +44,8 @@ const editOneArticleTool = async ({ request, h }) => {
     updatedAt,
   };
 
-  if (checkEmptyValues(newArticle)) return response.valueIsEmpty();
-
   if (id) {
-    const getArticle = await receiveRequest.getOneArticle({ id });
-    const isMyArticle = checkIsMyArticle(authId, getArticle);
-
-    if (!isMyArticle) return response.accessDenied();
+    if (!checkIdLength(id)) return response.notFound();
 
     const article = await receiveRequest.editOneArticle({ id }, newArticle);
     const isSuccess = article.modifiedCount === 1;
@@ -51,11 +54,6 @@ const editOneArticleTool = async ({ request, h }) => {
   }
 
   if (slug) {
-    const getArticle = await receiveRequest.getOneArticle({ slug });
-    const isMyArticle = checkIsMyArticle(authId, getArticle);
-
-    if (!isMyArticle) return response.accessDenied();
-
     const article = await receiveRequest.editOneArticle({ slug }, newArticle);
     const isSuccess = article.modifiedCount === 1;
 

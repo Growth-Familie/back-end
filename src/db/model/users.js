@@ -8,11 +8,6 @@ class Users {
       .collection(COLLECTIONS.USERS);
   }
 
-  async getAllUsers() {
-    const response = await this.collection.find({}).toArray();
-    return response;
-  }
-
   async getOneUser(user) {
     const { id, username, email } = user;
 
@@ -32,18 +27,8 @@ class Users {
     return response;
   }
 
-  async addOneUser(user) {
-    const response = await this.collection.insertOne(user);
-    return response;
-  }
-
   async editOneUser(username, user) {
     const response = await this.collection.updateOne({ username }, { $set: user });
-    return response;
-  }
-
-  async deleteOneUser(username) {
-    const response = await this.collection.deleteOne({ username });
     return response;
   }
 }

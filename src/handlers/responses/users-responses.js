@@ -28,30 +28,12 @@ class UsersResponses {
     }).code(400);
   }
 
-  usernameLengthDoesNotMatch() {
-    return this.h.response({
-      status: 'fail',
-      error: true,
-      message: 'Username harus memiliki panjang minimal 5 karakter',
-    }).code(400);
-  }
-
   passwordLengthDoesNotMatch() {
     return this.h.response({
       status: 'fail',
       error: true,
       message: 'Password harus memiliki panjang minimal 8 karakter',
     }).code(400);
-  }
-
-  successfullyAdded(id) {
-    return this.h.response({
-      status: 'success',
-      error: false,
-      data: {
-        userId: id,
-      },
-    }).code(201);
   }
 
   serverError() {
@@ -62,29 +44,14 @@ class UsersResponses {
     }).code(500);
   }
 
-  allUsersFound(users = []) {
-    return this.h.response({
-      status: 'success',
-      error: false,
-      data: {
-        users: users.map((user) => {
-          return {
-            level: user.level,
-            username: user.username,
-            email: user.email,
-          };
-        }),
-      },
-    }).code(200);
-  }
-
   userFound(user) {
+    const { _id: id } = user;
     return this.h.response({
       status: 'success',
       error: false,
       data: {
         user: {
-          level: user.level,
+          id,
           username: user.username,
           name: user.name,
           email: user.email,
@@ -109,28 +76,12 @@ class UsersResponses {
     }).code(400);
   }
 
-  accessDenied() {
-    return this.h.response({
-      status: 'fail',
-      error: 'false',
-      message: 'Akses ditolak',
-    }).code(403);
-  }
-
   userNotFound() {
     return this.h.response({
       status: 'fail',
       error: true,
       message: 'User tidak ditemukan',
     }).code(404);
-  }
-
-  userDeleted(username) {
-    return this.h.response({
-      status: 'success',
-      error: false,
-      message: `${username} berhasil dihapus`,
-    }).code(200);
   }
 
   passwordNotValid() {

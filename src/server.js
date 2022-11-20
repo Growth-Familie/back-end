@@ -5,15 +5,11 @@ const {
   HapiAuthBearerPlugin,
   AuthBearer,
 } = require('./auth/auth-bearer');
-const {
-  HapiCookiePlugin,
-  AuthCookie,
-} = require('./auth/auth-cookie');
 
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || '5000';
 
-const plugins = [ConnectionDB, HapiAuthBearerPlugin, HapiCookiePlugin];
+const plugins = [ConnectionDB, HapiAuthBearerPlugin];
 
 const init = async () => {
   const server = Hapi.server({
@@ -30,7 +26,6 @@ const init = async () => {
   await server.register(plugins);
 
   server.auth.strategy(AuthBearer.NAME, AuthBearer.SCHEME, AuthBearer.OPTIONS);
-  server.auth.strategy(AuthCookie.NAME, AuthCookie.SCHEME, AuthCookie.OPTIONS);
   server.auth.default(AuthBearer.NAME);
 
   server.route(routes);
