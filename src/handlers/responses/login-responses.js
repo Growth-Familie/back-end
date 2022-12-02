@@ -11,7 +11,7 @@ class LoginResponses {
       data: {
         user: {
           id,
-          level: user.level,
+          name: user.name,
           username: user.username,
           email: user.email,
         },

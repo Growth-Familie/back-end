@@ -19,8 +19,8 @@ Ganti ***\<TOKEN\>*** dengan token yang telah disediakan oleh tim Back-End.
         + [Mendapatkan Semua Artikel dengan Satu Kategori Tertentu](#articlescategoryname)
         + [Melihat Detail Artikel dengan Slug](#articlesslug)
         + [Melihat Detail Artikel dengan Id](#articlesidid)
-        + [Mendapatkan Semuda Daftar Kategori yang Ada](#categories)
-        + [Melihat Detail dari Satu Kategori Berdasarkan Nama Kategorinya](#categoriesname)
+        + [Mendapatkan Semua Daftar Kategori yang Ada](#categories)
+        + [Melihat Detail Kategori dan Needs (Budgeting) Berdasarkan Nama Kategorinya](#categoriesname)
     + [METHOD: POST](#method-post)
         + [Mengirimkan Data Pengguna untuk Login](#login)
 + [RUTE-RUTE LANJUTAN:](#rute-rute-lanjutan)
@@ -133,33 +133,31 @@ Digunakan untuk mendapatkan detail dari category. Response yang diberikan akan b
 
 ```
 {
-    "status": "success",
-    "error": false,
-    "data": {
-    "category": [
-      {
-        "_id": "6371a97235477aa3768daf41",
-        "name": "Bayi",
-        "needs": [
-            {
-              "name": "Popok",
-              "brand": "MamyPoko Sensasi Lembut Tape NB",
-              "quantity": 40,
-              "features": "Stretchy soft fit memungkinkan bayi bergerak bebas, lapisan berpori, lapisan bergelombang yang dapat menggunci pipis",
-              "price": 117000,
-              "source": "https://www.imaos.id/neraca/daftar-harga-popok-sekali-pakai-untuk-bayi-baru-lahir/"
-            },
-            {
-              "name": "Paket Baju Newborn",
-              "brand": "-",
-              "quantity": 24,
-              "features": "Handfeel yang lembut, daya serap air baik, tidak mudah berubah bentuk",
-              "price": 365000,
-              "source": "https://tokopedia.link/gWdB7AQTVub"
-            }
-          ]
-      }
-    ]
+  "status": "success",
+  "error": false,
+  "data": {
+    "category": {
+      "id": "6371a97235477aa3768daf41",
+      "name": "Bayi",
+      "needs": [
+        {
+          "name": "Popok",
+          "brand": "MamyPoko Sensasi Lembut Tape NB",
+          "quantity": 40,
+          "features": "Stretchy soft fit memungkinkan bayi bergerak bebas, lapisan berpori, lapisan bergelombang yang dapat menggunci pipis",
+          "price": 117000,
+          "source": "https://www.imaos.id/neraca/daftar-harga-popok-sekali-pakai-untuk-bayi-baru-lahir/"
+        },
+        {
+          "name": "Paket Baju Newborn",
+          "brand": "-",
+          "quantity": 24,
+          "features": "Handfeel yang lembut, daya serap air baik, tidak mudah berubah bentuk",
+          "price": 365000,
+          "source": "https://tokopedia.link/gWdB7AQTVub"
+        }s
+      ]
+    }
   }
 }
 ```

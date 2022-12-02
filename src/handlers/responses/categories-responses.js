@@ -21,11 +21,16 @@ class CategoriesResponses {
   }
 
   categoryFound(category) {
+    const { _id: id } = category;
     return this.h.response({
       status: 'success',
       error: false,
       data: {
-        category,
+        category: {
+          id,
+          name: category.name,
+          needs: category.needs,
+        },
       },
     }).code(200);
   }

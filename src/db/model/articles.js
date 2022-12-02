@@ -8,7 +8,10 @@ class Articles {
   }
 
   async getAllArticles() {
-    const response = await this.collection.find({}).sort({"insertedAt": -1}).toArray();
+    const descending = -1;
+    const insertedAt = descending;
+    const response = await this.collection.find({})
+      .sort({ insertedAt }).toArray();
     return response;
   }
 
