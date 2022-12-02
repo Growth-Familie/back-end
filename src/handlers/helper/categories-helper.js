@@ -4,7 +4,7 @@ const checkOneCategory = async (model, categoryName) => {
     return category.name.toLowerCase().includes(categoryName.toLowerCase());
   });
 
-  return getCategory;
+  return getCategory[0];
 };
 
 module.exports = {
