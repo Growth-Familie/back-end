@@ -6,11 +6,6 @@ const categoriesRoutes = [
     path: '/categories',
     handler: categoriesHandler.getAll,
   },
-  {
-    method: 'GET',
-    path: '/categories/{categoryName}',
-    handler: categoriesHandler.getDetail,
-  },
 ];
 
 module.exports = { categoriesRoutes };
