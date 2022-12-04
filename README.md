@@ -1,7 +1,7 @@
 # API GROWTH FAMILIE
-Alamat API: https://growfie-api.cyclic.app.
+Base url: https://growfie-api.cyclic.app.
 <br>
-Hampir semua request memerlukan autentikasi berupa bearer token. Simpan bearer token tersebut dalam headers seperti berikut:
+Semua request memerlukan autentikasi berupa bearer token. Simpan bearer token tersebut dalam headers seperti berikut:
 
 ```
 headers: {
@@ -13,32 +13,96 @@ headers: {
 Ganti ***\<TOKEN\>*** dengan token yang telah disediakan oleh tim Back-End.
 
 ###### DAFTAR ISI
-+ [RUTE-RUTE UMUM](#rute-rute-umum)
++ [RUTE-RUTE UNTUK ADMIN](#rute-rute-untuk-admin)
+    + [METHOD: POST](#method-post)
+        + [Mengirimkan Data Pengguna untuk Login](#login)
+    + [METHOD: PUT](#method-put)
+        + [Memperbarui Akun dengan Username](#usersusername)
     + [METHOD: GET](#method-get)
+        + [Melihat Detail Akun dengan Username](#usersusername-1)
++ [RUTE UNTUK KATEGORI](#rute-untuk-kategori)
+    + [METHOD: GET](#method-get-1)
+        + [Mendapatkan Semua Daftar Kategori yang Ada](#categories)
++ [RUTE-RUTE UNTUK MENGELOLA ARTIKEL](#rute-rute-untuk-mengelola-artikel)
+    + [METHOD: GET](#method-get-2)
         + [Mendapatkan Semua Artikel](#articles)
         + [Mendapatkan Semua Artikel dengan Satu Kategori Tertentu](#articlescategoryname)
         + [Melihat Detail Artikel dengan Slug](#articlesslug)
         + [Melihat Detail Artikel dengan Id](#articlesidid)
-        + [Mendapatkan Semua Daftar Kategori yang Ada](#categories)
-        + [Melihat Detail Kategori dan Needs (Budgeting) Berdasarkan Nama Kategorinya](#categoriesname)
-    + [METHOD: POST](#method-post)
-        + [Mengirimkan Data Pengguna untuk Login](#login)
-+ [RUTE-RUTE LANJUTAN:](#rute-rute-lanjutan)
     + [METHOD: POST](#method-post-1)
         + [Menambah Artikel Baru](#articles-1)
-    + [METHOD: PUT](#method-put)
+    + [METHOD: PUT](#method-put-1)
         + [Memperbarui Artikel dengan Slug](#articlesslug-1)
         + [Memperbarui Artikel dengan Id](#articlesidid-1)
-        + [Memperbarui Akun dengan Username](#usersusername)
     + [METHOD: DELETE](#method-delete)
         + [Menghapus Artikel dengan Slug](#articlesslug-2)
         + [Menghapus Artikel dengan Id](#articlesidid-2)
-    + [METHOD: GET](#method-get-1)
-        + [Melihat Detail Akun dengan Username](#usersusername-1)
++ [RUTE-RUTE UNTUK MENGELOLA SARAN PRODUK (BUDGETING)](#rute-rute-untuk-mengelola-saran-produk-produk)
+    + [METHOD: GET](#method-get-3)
+        + [Melihat Semua Saran Produk](#products)
+        + [Melihat Satu Saran Produk Berdasarkan Id](#productsproductid)
+        + [Melihat Semua Saran Produk Berdasarkan Satu Kategori](#productscategoryname)
+    + [METHOD: DELETE](#method-delete-1)
+        + [Menghapus Satu Saran Produk Berdasarkan Id](#productsproductid-1)
+    + [METHOD: POST](#method-post-2)
+        + [Menambah Satu Saran Produk](#products-1)
+    + [METHOD: PUT](#method-put-2)
+        + [Mengubah Satu Saran Produk Berdasarkan Id](#productsproductid-2)
 
-### RUTE-RUTE UMUM
-Rute-rute dibawah ini dapat diakses secara bebas dengan syarat menggunakan autentikasi bearer token seperti di atas.
+### RUTE-RUTE UNTUK ADMIN
+#### METHOD: POST
+###### /login
+Digunakan agar dapat mengakses *rute-rute lanjutan* dengan syarat login menggunakan akun yang telah terdaftar. Kirimkan request dengan body seperti berikut:
 
+```
+body: {
+  "username": "username_akun",
+  "password": "password_akun"
+}
+```
+
+Ganti masing-masing *username_akun* dan *password_akun* dengan yang telah terdaftar.<br>
+
+Jika response berstatus sukses, untuk mempermudah sistem login maka sisi Client/Front-End perlu menyimpan informasi user login tersebut dalam web storage.
+
+#### METHOD: PUT
+###### /users/:username
+Ganti ***:username*** dengan nilai username yang dimiliki pada akun target. Digunakan untuk memperbarui data akun.<br>
+
+Lakukan request dengan method put dan sertakan nilai-nilai berikut pada body, contoh:
+
+```
+body: {
+  "name": "Growth Familie",
+  "email": "growfie@example.com",
+  "currentPassword": "password_lama",
+  "newPassword": "password_baru"
+}
+```
+
+PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
++ *name* - nama lengkap pengguna
++ *currentPassword* - masukkan password saat ini / password lama, jika tidak sesuai maka update gagal
++ *newPassword* - masukkan password baru, pastikan tidak memiliki white space dan lebih dari 8 karakter
+
+Untuk saat ini tidak dapat melakukan pembaruan terhadap nilai username.<br>
+
+#### METHOD: GET
+###### /users/:username
+Ganti ***:username*** dengan username yang dimiliki pada akun target.<br>
+Digunakan untuk melihat detail akun.
+
+### RUTE UNTUK KATEGORI
+#### METHOD: GET
+###### /categories
+Digunakan untuk mendapatkan semua daftar kategori yang telah tersedia dan hanya menampilkan id dan nama kategori. Adapun kategori yang tersedia adalah:
++ Kehamilan
++ Bayi
++ Balita
++ Anak-anak
++ Parenting
+
+### RUTE-RUTE UNTUK MENGELOLA ARTIKEL
 #### METHOD: GET
 ###### /articles
 Digunakan untuk mendapatkan semua artikel yang telah tersedia. Semua artikel tersebut tersimpan dalam array. Contoh nilai yang dikembalikan adalah seperti berikut:
@@ -119,68 +183,7 @@ Meskipun tidak disarankan, kami sediakan rute untuk mendapatkan detail artikel m
 ```
 [KEMBALI KE DAFTAR ISI](#daftar-isi)
 
-###### /categories
-Digunakan untuk mendapatkan semua daftar kategori yang telah tersedia dan hanya menampilkan id dan nama kategori. Adapun kategori yang tersedia adalah:
-+ Kehamilan
-+ Bayi
-+ Balita
-+ Anak-anak
-+ Parenting
-
-###### /categories/:name
-Ganti **:name** dengan nama kategori yang telah tersedia.<br>
-Digunakan untuk mendapatkan detail dari category. Response yang diberikan akan berupa:
-
-```
-{
-  "status": "success",
-  "error": false,
-  "data": {
-    "category": {
-      "id": "6371a97235477aa3768daf41",
-      "name": "Bayi",
-      "needs": [
-        {
-          "name": "Popok",
-          "brand": "MamyPoko Sensasi Lembut Tape NB",
-          "quantity": 40,
-          "features": "Stretchy soft fit memungkinkan bayi bergerak bebas, lapisan berpori, lapisan bergelombang yang dapat menggunci pipis",
-          "price": 117000,
-          "source": "https://www.imaos.id/neraca/daftar-harga-popok-sekali-pakai-untuk-bayi-baru-lahir/"
-        },
-        {
-          "name": "Paket Baju Newborn",
-          "brand": "-",
-          "quantity": 24,
-          "features": "Handfeel yang lembut, daya serap air baik, tidak mudah berubah bentuk",
-          "price": 365000,
-          "source": "https://tokopedia.link/gWdB7AQTVub"
-        }s
-      ]
-    }
-  }
-}
-```
-
-#### METHOD: POST
-###### /login
-Digunakan agar dapat mengakses *rute-rute lanjutan* dengan syarat login menggunakan akun yang telah terdaftar. Kirimkan request dengan body seperti berikut:
-
-```
-body: {
-  "username": "username_akun",
-  "password": "password_akun"
-}
-```
-
-Ganti masing-masing *username_akun* dan *password_akun* dengan yang telah terdaftar.<br>
-
-Jika response berstatus sukses, untuk mempermudah sistem login maka sisi Client/Front-End perlu menyimpan informasi user login tersebut dalam web storage.
-
-[KEMBALI KE DAFTAR ISI](#daftar-isi)
-
-### RUTE-RUTE LANJUTAN
-Maksud dari ***rute-rute lanjutan untuk semua jenis akun*** yakni merupakan rute yang hanya dapat diakses jika telah berhasil login.
+Rute-rute berikut hanya dapat diakses jika telah berhasil login / membutuhkan informasi user terdaftar.
 
 #### METHOD: POST
 ###### /articles
@@ -250,27 +253,6 @@ Ganti ***:id*** dengan id yang dimiliki pada artikel target. Digunakan untuk mem
 
 [KEMBALI KE DAFTAR ISI](#daftar-isi)
 
-###### /users/:username
-Ganti ***:username*** dengan nilai username yang dimiliki pada akun target. Digunakan untuk memperbarui data akun.<br>
-
-Lakukan request dengan method put dan sertakan nilai-nilai berikut pada body, contoh:
-
-```
-body: {
-  "name": "Growth Familie",
-  "email": "email@example.com",
-  "currentPassword": "password_lama",
-  "newPassword": "password_baru"
-}
-```
-
-PENTING! NILAI-NILAI BERIKUT WAJIB DIISI
-+ *name* - nama lengkap pengguna
-+ *currentPassword* - masukkan password saat ini / password lama, jika tidak sesuai maka update gagal
-+ *newPassword* - masukkan password baru, pastikan tidak memiliki white space dan lebih dari 8 karakter
-
-Untuk saat ini tidak dapat melakukan pembaruan terhadap nilai username.<br>
-
 #### METHOD: DELETE
 ###### /articles/:slug
 Ganti ***:slug*** dengan slug yang dimiliki pada artikel target. Digunakan untuk menghapus satu artikel berdasarkan pada slug. Artikel hanya dapat dihapus oleh pemilik artikel atau akun yang menambahkan artikel tersebut.
@@ -281,9 +263,56 @@ Ganti ***:slug*** dengan slug yang dimiliki pada artikel target. Digunakan untuk
 Ganti ***:id*** dengan id yang dimiliki pada artikel target.<br>
 Digunakan untuk menghapus satu artikel berdasarkan pada id. Artikel hanya dapat dihapus oleh pemilik artikel atau akun yang menambahkan artikel tersebut.
 
+[KEMBALI KE DAFTAR ISI](#daftar-isi)
+
+### RUTE-RUTE UNTUK MENGELOLA SARAN PRODUK-PRODUK
 #### METHOD: GET
-###### /users/:username
-Ganti ***:username*** dengan username yang dimiliki pada akun target.<br>
-Digunakan untuk melihat detail akun.
+###### /products
+Rute ini digunakan untuk mendapatkan produk-produk yang disarankan dari semua kategori. Saran produk yang telah tersedia adalah kategori bayi, balita, dan anak-anak.
+
+###### /products/:productId
+Ganti ***:productId*** dengan id dari satu saran produk tertentu.<br>
+Rute ini digunakan untuk melihat satu saran produk saja.
+
+###### /products/category/:name
+Ganti ***:name*** dengan nama kategori yang telah terdaftar.<br>
+Rute ini digunakan untuk mendapatkan produk-produk yang disarankan berdasarkan satu kategori tertentu.
+
+#### METHOD: DELETE
+###### /products/:productId
+Ganti ***:productId*** dengan id dari satu saran produk tertentu.<br>
+Rute ini digunakan untuk menghapus saran produk dari database berdasarkan pada id-nya.
+
+[KEMBALI KE DAFTAR ISI](#daftar-isi)
+
+Rute-rute berikut dapat berfungsi apabila terdapat informasi pengguna yang dikirimkan dan pengguna tersebut terdaftar dan sesuai dengan yang ada di database.
+
+#### METHOD: POST
+###### /products
+Rute ini digunakan untuk menambahkan satu saran produk baru, dengan contoh format sebagai berikut:
+
+```
+{
+  "category": "Bayi",
+  "name": "Popok Besi",
+  "brand": "Poksi",
+  "price": "2500000",
+  "features": "Tahan banting",
+  "source": "https://popokbesi.com",
+  "user": {
+    "id": "636xxxxxxxxxxxxxxxxxxxxx",
+    "username": "growthfamilie",
+    "name": "Growth Familie",
+    "email": "growfie@example.com
+  }
+}
+```
+
+Setiap properti wajib memiliki nilai/tidak boleh kosong. Jika nilai *price* bertipe string maka akan dikonversi menjadi integer.
+
+#### METHOD: PUT
+###### /products/:productId
+Ganti ***productId*** dengan id dari satu saran produk tertentu.<br>
+Rute ini digunakan untuk memperbarui/update satu saran produk tertentu. Format nilai yang dikirimkan sama seperti contoh untuk menambahkan satu saran produk baru.
 
 [KEMBALI KE DAFTAR ISI](#daftar-isi)

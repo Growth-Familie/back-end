@@ -3,6 +3,7 @@ const COLLECTIONS = {
   TOKEN: 'token',
   CATEGORIES: 'categories',
   ARTICLES: 'articles',
+  PRODUCTS: 'products',
 };
 
 module.exports = COLLECTIONS;
